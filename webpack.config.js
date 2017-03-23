@@ -7,7 +7,6 @@ module.exports = {
     entry: [
         'react-hot-loader/patch',
         'webpack-dev-server/client?http://localhost:9000',
-        'webpack/hot/only-dev-server',
         './src/app.js'
     ],
     output: {
@@ -18,7 +17,7 @@ module.exports = {
         rules: [{
             test: /\.scss$/,
             use: ExtractTextPlugin.extract({
-                fallbackLoader: 'style-loader',
+                fallback: 'style-loader',
                 loader: ['css-loader', 'sass-loader'],
                 publicPath: '/dist/'
             })
@@ -33,30 +32,32 @@ module.exports = {
             test: /\.js$/,
             enforce: "pre",
             loader: "eslint-loader"
-          }]
+        }]
     },
+    devtool: 'inline-source-map',
     devServer: {
         contentBase: path.join(__dirname, 'dist'),
         compress: true,
+        hot: true,
         port: 9000,
         stats: 'errors-only',
         open: true
     },
     plugins: [
-      new HtmlWebpackPlugin({
-         title: 'React seed',
-         minify: {
-            collapseWhitespace: true
-         },
-         hash: true,
-         template: './src/index.html'
-      }),
-      new ExtractTextPlugin({
-          filename: 'bundle.css',
-          disable: false,
-          allChunks: true
-      }),
-      new webpack.HotModuleReplacementPlugin(),
-      new webpack.NamedModulesPlugin()
+        new HtmlWebpackPlugin({
+            title: 'React seed',
+            minify: {
+                collapseWhitespace: true
+            },
+            hash: true,
+            template: './src/index.html'
+        }),
+        new ExtractTextPlugin({
+            filename: 'bundle.css',
+            disable: false,
+            allChunks: true
+        }),
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NamedModulesPlugin()
     ]
 }
