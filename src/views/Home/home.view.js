@@ -4,11 +4,9 @@ export default class Home extends Component {
     constructor () {
         super();
     }
-
-
     render () {
         return (
-            <div>So i think hot module replacement is working?</div>
+            <div>Hello world!</div>
         );
     }
 }
